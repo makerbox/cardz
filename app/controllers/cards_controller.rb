@@ -24,11 +24,20 @@ class CardsController < ApplicationController
   # POST /cards
   # POST /cards.json
   def create
-    @card = Card.new(card_params)
-
-    respond_to do |format|
+    result = false
+    rarity = card_params[:rarity].to_i
+    rarity.times do |c|
+      @card = Card.new(card_params)
+      @card.value = (Card.all.count / rarity).round
       if @card.save
-        format.html { redirect_to @card, notice: 'Card was successfully created.' }
+        result = true
+      else
+        result = false
+      end
+    end
+    respond_to do |format|
+      if result == true
+        format.html { redirect_to @card, notice: 'card was successfully created.' }
         format.json { render :show, status: :created, location: @card }
       else
         format.html { render :new }

@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: dcqdibeec
+  api_key: '493561495666268'
+  api_secret: P8PO6ahTXlM9VHyiaOQs8U_qtTY
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: dcqdibeec
+  api_key: '493561495666268'
+  api_secret: P8PO6ahTXlM9VHyiaOQs8U_qtTY
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: dcqdibeec
+  api_key: '493561495666268'
+  api_secret: P8PO6ahTXlM9VHyiaOQs8U_qtTY
+  enhance_image_tag: true
+  static_image_support: false
