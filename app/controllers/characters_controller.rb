@@ -24,19 +24,10 @@ class CharactersController < ApplicationController
   # POST /characters
   # POST /characters.json
   def create
-    result = false
-    rarity = character_params[:rarity].to_i
-    puts rarity
-    rarity.times do |c|
-      @character = Character.new(character_params)
-      if @character.save
-        result = true
-      else
-        result = false
-      end
-    end
+    @character = Character.new(character_params)
+    @character.value = Character.all.count / @character.rarity
     respond_to do |format|
-      if result == true
+      if @character.save
         format.html { redirect_to @character, notice: 'Character was successfully created.' }
         format.json { render :show, status: :created, location: @character }
       else

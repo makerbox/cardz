@@ -1,6 +1,11 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
 
+  def shuffle
+    @cards = Card.all
+    
+  end
+
   # GET /cards
   # GET /cards.json
   def index
@@ -24,20 +29,11 @@ class CardsController < ApplicationController
   # POST /cards
   # POST /cards.json
   def create
-    result = false
-    rarity = card_params[:rarity].to_i
-    rarity.times do |c|
-      @card = Card.new(card_params)
-      @card.value = (Card.all.count / rarity).round
-      if @card.save
-        result = true
-      else
-        result = false
-      end
-    end
+    @card = Card.new(card_params)
+    @card.value = Card.all.count / @card.rarity
     respond_to do |format|
-      if result == true
-        format.html { redirect_to @card, notice: 'card was successfully created.' }
+      if @card.save
+        format.html { redirect_to @card, notice: 'Card was successfully created.' }
         format.json { render :show, status: :created, location: @card }
       else
         format.html { render :new }

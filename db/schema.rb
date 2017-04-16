@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415093000) do
+ActiveRecord::Schema.define(version: 20170416074356) do
 
   create_table "cards", force: :cascade do |t|
-    t.string   "image"
     t.integer  "value"
     t.text     "action"
     t.integer  "rarity"
@@ -22,12 +21,14 @@ ActiveRecord::Schema.define(version: 20170415093000) do
     t.integer  "character_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "image"
+    t.integer  "profile_id"
     t.index ["character_id"], name: "index_cards_on_character_id"
+    t.index ["profile_id"], name: "index_cards_on_profile_id"
   end
 
   create_table "characters", force: :cascade do |t|
     t.integer  "health"
-    t.string   "image"
     t.integer  "attack"
     t.integer  "defense"
     t.text     "action"
@@ -38,7 +39,18 @@ ActiveRecord::Schema.define(version: 20170415093000) do
     t.datetime "updated_at",  null: false
     t.text     "description"
     t.integer  "rarity"
+    t.string   "image"
     t.index ["profile_id"], name: "index_characters_on_profile_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.integer  "card_id"
+    t.integer  "character_id"
+    t.string   "image"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["card_id"], name: "index_images_on_card_id"
+    t.index ["character_id"], name: "index_images_on_character_id"
   end
 
   create_table "profiles", force: :cascade do |t|
